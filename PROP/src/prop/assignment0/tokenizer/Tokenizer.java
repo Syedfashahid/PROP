@@ -1,6 +1,9 @@
-package prop.assignment0;
+package prop.assignment0.tokenizer;
 
 import java.io.IOException;
+
+import prop.assignment0.exception.TokenizerException;
+import prop.assignment0.scanner.Scanner;
 
 public class Tokenizer implements ITokenizer {
 	private Scanner scanner;
@@ -8,7 +11,7 @@ public class Tokenizer implements ITokenizer {
 	public Tokenizer() {
 		scanner = new Scanner();
 	}
-	
+
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
 		scanner.open(fileName);
@@ -18,12 +21,12 @@ public class Tokenizer implements ITokenizer {
 	@Override
 	public Lexeme current() throws IOException, TokenizerException {
 		char currentChar = scanner.current();
-		
+
 		while(Character.isWhitespace(currentChar)) {
 			moveNext();
 			currentChar = scanner.current();
 		}
-		
+
 		switch(currentChar) {
 		case (char) -1:
 			return new Lexeme(currentChar, Token.EOF);
@@ -45,27 +48,27 @@ public class Tokenizer implements ITokenizer {
 			return new Lexeme(currentChar, Token.DIV_OP);
 		default:
 			String str = "";
-			
+
 			if(Character.isAlphabetic(currentChar)) {
 				while(Character.isAlphabetic(currentChar)) {
 					str += currentChar;
 					moveNext();
 					currentChar = scanner.current();
 				}
-				
+
 				return new Lexeme(str, Token.IDENT);
 			}
-			
+
 			else if(Character.isDigit(currentChar)) {
 				while(Character.isDigit(currentChar)) {
 					str += currentChar;
 					moveNext();
 					currentChar = scanner.current();
 				}
-				
+
 				return new Lexeme(str, Token.INT_LIT);
 			}
-			
+
 			throw new TokenizerException("Failed to categorize char: '" + currentChar + "'");
 		}
 	}
@@ -79,5 +82,4 @@ public class Tokenizer implements ITokenizer {
 	public void close() throws IOException {
 		scanner.close();
 	}
-
 }

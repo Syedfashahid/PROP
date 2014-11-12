@@ -1,4 +1,4 @@
-package prop.assignment0;
+package prop.assignment0.node;
 
 public interface INode {
 	/**

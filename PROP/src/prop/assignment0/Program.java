@@ -3,6 +3,10 @@ package prop.assignment0;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
+import prop.assignment0.node.INode;
+import prop.assignment0.parser.IParser;
+import prop.assignment0.parser.Parser;
+
 public class Program {
 	public static void main(String[] args) {
 		String inputFileName = null;

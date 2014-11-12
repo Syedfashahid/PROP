@@ -1,4 +1,5 @@
-package prop.assignment0;
+package prop.assignment0.tokenizer;
+
 
 public class Lexeme {
 	private Object value;

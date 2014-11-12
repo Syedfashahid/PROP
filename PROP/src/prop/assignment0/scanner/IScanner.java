@@ -1,4 +1,4 @@
-package prop.assignment0;
+package prop.assignment0.scanner;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

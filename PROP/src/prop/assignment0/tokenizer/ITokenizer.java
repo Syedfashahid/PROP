@@ -1,7 +1,8 @@
-package prop.assignment0;
+package prop.assignment0.tokenizer;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import prop.assignment0.exception.TokenizerException;
 
 public interface ITokenizer {
 	/**

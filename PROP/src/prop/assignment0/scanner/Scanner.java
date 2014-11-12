@@ -1,12 +1,9 @@
-package prop.assignment0;
+package prop.assignment0.scanner;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.InputStreamReader;
 
 public class Scanner implements IScanner {
 	public static final char NULL = (char)0;

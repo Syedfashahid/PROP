@@ -1,7 +1,10 @@
-package prop.assignment0;
+package prop.assignment0.parser;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import prop.assignment0.exception.ParserException;
+import prop.assignment0.exception.TokenizerException;
+import prop.assignment0.node.INode;
 
 public interface IParser {
 	/**
