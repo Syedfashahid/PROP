@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import prop.assignment0.exception.ParserException;
 import prop.assignment0.exception.TokenizerException;
+import prop.assignment0.node.AssignNode;
 import prop.assignment0.node.INode;
 import prop.assignment0.tokenizer.Tokenizer;
 
@@ -21,7 +22,10 @@ public class Parser implements IParser {
 
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
-		
+		return null;
+	}
+	
+	public AssignNode parseAssign() {
 		return null;
 	}
 
