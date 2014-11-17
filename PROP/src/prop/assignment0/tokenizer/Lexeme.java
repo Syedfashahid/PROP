@@ -1,11 +1,11 @@
 package prop.assignment0.tokenizer;
 
 
-public class IntNode {
+public class Lexeme {
 	private Object value;
 	private Token token;
 
-	public IntNode(Object value, Token token) {
+	public Lexeme(Object value, Token token) {
 		this.value = value;
 		this.token = token;
 		System.out.println("Lexeme:" + value + " " + token);

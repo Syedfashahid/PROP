@@ -1,20 +1,16 @@
 package prop.assignment0.node;
 
 public class TermNode implements INode {
-	private FactorNode factorNode;
-	private TermNode termNode;
+	public FactorNode factor;
+	public TermNode term;
 	
-	public TermNode(FactorNode factorNode, TermNode termNode) {
-		this.factorNode = factorNode;
-		this.termNode = termNode;
+	public TermNode() {
+		
 	}
 	
-	public FactorNode getFactor() {
-		return factorNode;
-	}
-
-	public TermNode getTerm() {
-		return termNode;
+	public TermNode(FactorNode factor, TermNode term) {
+		this.factor = factor;
+		this.term = term;
 	}
 
 	@Override
@@ -25,5 +21,15 @@ public class TermNode implements INode {
 	@Override
 	public void buildString(StringBuilder builder, int tabs) {
 
+	}
+	
+	@Override
+	public String toString() {
+		String str = "TermNode\n" + factor;
+		
+		if(term != null)
+			str += "\n" + term;
+		
+		return str;
 	}
 }

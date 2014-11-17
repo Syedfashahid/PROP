@@ -18,7 +18,7 @@ public class Tokenizer implements ITokenizer {
 	}
 
 	@Override
-	public IntNode current() throws IOException, TokenizerException {
+	public Lexeme current() throws IOException, TokenizerException {
 		moveNext();
 		char currentChar = scanner.current();
 
@@ -29,23 +29,23 @@ public class Tokenizer implements ITokenizer {
 
 		switch(currentChar) {
 		case (char) -1:
-			return new IntNode(currentChar, Token.EOF);
+			return new Lexeme(currentChar, Token.EOF);
 		case '=':
-			return new IntNode(currentChar, Token.ASSIGN_OP);
+			return new Lexeme(currentChar, Token.ASSIGN_OP);
 		case ';':
-			return new IntNode(currentChar, Token.SEMICOLON);
+			return new Lexeme(currentChar, Token.SEMICOLON);
 		case '(':
-			return new IntNode(currentChar, Token.LEFT_PAREN);
+			return new Lexeme(currentChar, Token.LEFT_PAREN);
 		case '+':
-			return new IntNode(currentChar, Token.ADD_OP);
+			return new Lexeme(currentChar, Token.ADD_OP);
 		case '-':
-			return new IntNode(currentChar, Token.SUB_OP);
+			return new Lexeme(currentChar, Token.SUB_OP);
 		case ')':
-			return new IntNode(currentChar, Token.RIGHT_PAREN);
+			return new Lexeme(currentChar, Token.RIGHT_PAREN);
 		case '*':
-			return new IntNode(currentChar, Token.MULT_OP);
+			return new Lexeme(currentChar, Token.MULT_OP);
 		case '/':
-			return new IntNode(currentChar, Token.DIV_OP);
+			return new Lexeme(currentChar, Token.DIV_OP);
 		default:
 			String str = Character.toString(currentChar);
 
@@ -55,7 +55,7 @@ public class Tokenizer implements ITokenizer {
 					str += scanner.current();
 				}
 
-				return new IntNode(str, Token.IDENT);
+				return new Lexeme(str, Token.IDENT);
 			}
 
 			else if(Character.isDigit(currentChar)) {
@@ -64,7 +64,7 @@ public class Tokenizer implements ITokenizer {
 					str += scanner.current();
 				}
 
-				return new IntNode(str, Token.INT_LIT);
+				return new Lexeme(str, Token.INT_LIT);
 			}
 
 			throw new TokenizerException("Failed to categorize char: '" + currentChar + "'");

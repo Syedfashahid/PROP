@@ -13,7 +13,7 @@ public interface ITokenizer {
 	/**
 	 * Returns the current token in the stream.
 	 */
-	IntNode current() throws IOException, TokenizerException;
+	Lexeme current() throws IOException, TokenizerException;
 
 	/**
 	 * Moves current to the next token in the stream.

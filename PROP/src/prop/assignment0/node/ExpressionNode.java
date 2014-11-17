@@ -1,18 +1,16 @@
 package prop.assignment0.node;
 
-import prop.assignment0.tokenizer.Lexeme;
-
-public class FactorNode implements INode {
-	public Lexeme integer;
+public class ExpressionNode implements INode {
+	public TermNode term;
 	public ExpressionNode expr;
 	
-	public FactorNode() {
+	public ExpressionNode() {
 		
 	}
 	
-	public FactorNode(Lexeme integer, ExpressionNode expr) {
-		this.integer = integer;
-		this.expr = expr;
+	public ExpressionNode(TermNode term, ExpressionNode expr) {
+		this.term = term;
+		this.expr = expr; 
 	}
 
 	@Override
@@ -27,10 +25,8 @@ public class FactorNode implements INode {
 	
 	@Override
 	public String toString() {
-		String str = "FactorNode";
+		String str = "ExpressionNode\n " + term;
 		
-		if(integer != null)
-			str += "\n" + integer;
 		if(expr != null)
 			str += "\n" + expr;
 		
