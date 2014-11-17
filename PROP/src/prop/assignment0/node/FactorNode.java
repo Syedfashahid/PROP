@@ -30,9 +30,9 @@ public class FactorNode implements INode {
 		String str = "FactorNode";
 		
 		if(integer != null)
-			str += "\n" + integer;
+			str += "\n\t" + integer;
 		if(expr != null)
-			str += "\n" + expr;
+			str += "\n\t" + expr;
 		
 		return str;
 	}

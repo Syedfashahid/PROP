@@ -25,10 +25,10 @@ public class ExpressionNode implements INode {
 	
 	@Override
 	public String toString() {
-		String str = "ExpressionNode\n " + term;
+		String str = "ExpressionNode\n\t" + term;
 		
 		if(expr != null)
-			str += "\n" + expr;
+			str += "\n\t" + expr;
 		
 		return str;
 	}

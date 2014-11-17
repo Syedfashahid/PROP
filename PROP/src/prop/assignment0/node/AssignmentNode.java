@@ -23,6 +23,6 @@ public class AssignmentNode implements INode {
 	
 	@Override
 	public String toString() {
-		return "AssignmentNode\nid: " + id + "\nexpr: " + expr;
+		return "AssignmentNode\n\t" + id + "\n\t" + expr;
 	}
 }

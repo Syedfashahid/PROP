@@ -25,10 +25,10 @@ public class TermNode implements INode {
 	
 	@Override
 	public String toString() {
-		String str = "TermNode\n" + factor;
+		String str = "TermNode\n\t" + factor;
 		
 		if(term != null)
-			str += "\n" + term;
+			str += "\n\t" + term;
 		
 		return str;
 	}

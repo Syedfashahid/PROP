@@ -55,14 +55,13 @@ public class Parser implements IParser {
 		TermNode term = parseTerm();
 		ExpressionNode expr = new ExpressionNode();
 		expr.term = term;
-		
-		curLex = tokenizer.current();
 		Token curTkn = curLex.token();
 		
-		if(curTkn == Token.SEMICOLON || curTkn == Token.EOF)
+		if(curTkn == Token.SEMICOLON)
 			return expr;
 		
-		//System.out.println(curTkn);
+		curLex = tokenizer.current();
+		curTkn = curLex.token();
 		
 		if(curTkn != Token.ADD_OP && curTkn != Token.SUB_OP)
 			throw new ParserException("Syntax error.");
@@ -89,7 +88,6 @@ public class Parser implements IParser {
 		
 		Lexeme integer = curLex;
 		curLex = tokenizer.current();
-		
 		
 		if(curLex.token() == Token.SEMICOLON) {
 			fact.integer = integer;
