@@ -15,11 +15,11 @@ public class Tokenizer implements ITokenizer {
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
 		scanner.open(fileName);
-		moveNext();
 	}
 
 	@Override
 	public IntNode current() throws IOException, TokenizerException {
+		moveNext();
 		char currentChar = scanner.current();
 
 		while(Character.isWhitespace(currentChar)) {
@@ -47,23 +47,21 @@ public class Tokenizer implements ITokenizer {
 		case '/':
 			return new IntNode(currentChar, Token.DIV_OP);
 		default:
-			String str = "";
+			String str = Character.toString(currentChar);
 
 			if(Character.isAlphabetic(currentChar)) {
-				while(Character.isAlphabetic(currentChar)) {
-					str += currentChar;
+				while(Character.isAlphabetic(scanner.peek())) {
 					moveNext();
-					currentChar = scanner.current();
+					str += scanner.current();
 				}
 
 				return new IntNode(str, Token.IDENT);
 			}
 
 			else if(Character.isDigit(currentChar)) {
-				while(Character.isDigit(currentChar)) {
-					str += currentChar;
+				while(Character.isDigit(scanner.peek())) {
 					moveNext();
-					currentChar = scanner.current();
+					str += scanner.current();
 				}
 
 				return new IntNode(str, Token.INT_LIT);

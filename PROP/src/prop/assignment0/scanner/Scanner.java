@@ -12,6 +12,7 @@ public class Scanner implements IScanner {
 	private FileInputStream stream = null;
 	private InputStreamReader reader = null;
 	private char current = NULL;
+	private char next = NULL;
 	
 	public Scanner() {
 	}
@@ -25,11 +26,20 @@ public class Scanner implements IScanner {
 		return current;
 	}
 	
+	public char peek() {
+		return next;
+	}
+	
 	public void moveNext() throws IOException {
 		if (reader == null)
 			throw new IOException("No open file.");
-		if (current != EOF)
+		
+		if(next != NULL)
+			current = next;
+		else
 			current = (char)reader.read();
+			
+		next = (char)reader.read();
 	}
 	
 	public void close() throws IOException {
