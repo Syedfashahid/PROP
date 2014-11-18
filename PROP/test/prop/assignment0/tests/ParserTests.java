@@ -13,8 +13,8 @@ public class ParserTests {
 	@Test
 	public void test() throws IOException, TokenizerException, ParserException {
 		Parser parser = new Parser();
-		parser.open("testFile2");
+		parser.open("testFile");
 		INode tree = parser.parse();
-		System.out.println(tree);
+		//System.out.println(tree);
 	}
 }

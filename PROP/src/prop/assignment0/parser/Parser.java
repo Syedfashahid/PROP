@@ -15,89 +15,90 @@ import prop.assignment0.tokenizer.Tokenizer;
 
 public class Parser implements IParser {
 	private Tokenizer tokenizer;
-	private Lexeme curLex;
+	private Lexeme current;
+	private Lexeme next;
 	
 	public Parser() {
 		tokenizer = new Tokenizer();
 	}
-	
+
 	@Override
-	public void open(String fileName) throws IOException, TokenizerException {	
+	public void open(String fileName) throws IOException, TokenizerException {
 		tokenizer.open(fileName);
 	}
 
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
-		curLex = tokenizer.current();
-		Token token = curLex.token();
-		INode root = null;
+		current = tokenizer.current();
 		
-		if(token == Token.IDENT)
-			root = parseAssign();
-		else
-			throw new ParserException("Syntax error.");
+		if(current.token() == Token.IDENT)
+			return parseAssignment();
 		
-		return root;
+		throw new ParserException("Syntax error.");
 	}
 	
-	public AssignmentNode parseAssign() throws IOException, TokenizerException, ParserException {
-		Lexeme id = curLex;
+	public AssignmentNode parseAssignment() throws IOException, TokenizerException, ParserException {
+		Lexeme id = current;
+		current = tokenizer.current();
 		
-		if(tokenizer.current().token() != Token.ASSIGN_OP)
+		if(current.token() != Token.ASSIGN_OP)
 			throw new ParserException("Syntax error.");
 		
-		ExpressionNode expr = parseExpr();
+		ExpressionNode expression = parseExpression();
+		current = tokenizer.current();
 		
-		return new AssignmentNode(id, expr);
+		if(current.token() != Token.SEMICOLON)
+			throw new ParserException("Expected ASSIGN_OP or SEMICOLON but was " + current.token());
+		
+		return new AssignmentNode(id, expression);
 	}
 	
-	public ExpressionNode parseExpr() throws ParserException, IOException, TokenizerException {
+	public ExpressionNode parseExpression() throws IOException, TokenizerException, ParserException {
 		TermNode term = parseTerm();
-		ExpressionNode expr = new ExpressionNode();
-		expr.term = term;
-		Token curTkn = curLex.token();
+		ExpressionNode expression = null;
+		Lexeme operator = null;
+		//current = tokenizer.current();
+		next = tokenizer.peek();
 		
-		if(curTkn == Token.SEMICOLON)
-			return expr;
-		
-		curLex = tokenizer.current();
-		curTkn = curLex.token();
-		
-		if(curTkn != Token.ADD_OP && curTkn != Token.SUB_OP)
-			throw new ParserException("Syntax error.");
-		
-		expr.expr = parseExpr();
-		
-		return expr;
+		if(next.token() == Token.ADD_OP || next.token() == Token.SUB_OP) {
+			operator = tokenizer.current();
+			expression = parseExpression();
+		}
+			
+		return new ExpressionNode(term, expression, operator);
 	}
 	
 	public TermNode parseTerm() throws IOException, TokenizerException, ParserException {
-		FactorNode fact = parseFact();
-		TermNode term = new TermNode();
-		term.factor = fact;
+		FactorNode factor = parseFactor();
+		TermNode term = null;
+		Lexeme op = null;
+		//current = tokenizer.current();
+		next = tokenizer.peek();
 		
-		return term;
+		if(next.token() == Token.RIGHT_PAREN)
+			tokenizer.current();
+		
+		if(next.token() == Token.DIV_OP || next.token() == Token.MULT_OP) {
+			op = tokenizer.current();
+			term = parseTerm();
+		}
+		
+		return new TermNode(factor, term, op);
 	}
 	
-	public FactorNode parseFact() throws IOException, TokenizerException, ParserException {
-		FactorNode fact = new FactorNode();
-		curLex = tokenizer.current();
+	public FactorNode parseFactor() throws IOException, TokenizerException, ParserException {
+		//current = tokenizer.current();
+		next = tokenizer.peek();
 		
-		if(curLex.token() != Token.INT_LIT)
-			throw new ParserException("Syntax error.");
+		if(next.token() == Token.INT_LIT)
+			return new FactorNode(tokenizer.current(), null);
 		
-		Lexeme integer = curLex;
-		curLex = tokenizer.current();
-		
-		if(curLex.token() == Token.SEMICOLON) {
-			fact.integer = integer;
-			return fact;
+		if(next.token() == Token.LEFT_PAREN) {
+			tokenizer.current();
+			return new FactorNode(null, parseExpression());
 		}
-			
-		ExpressionNode expr = parseExpr();
-		fact.expr = expr;
 		
-		return fact;
+		throw new ParserException("Expected INT_LIT or LEFT_PAREN but was " + next.token());
 	}
 
 	@Override
