@@ -57,7 +57,6 @@ public class Parser implements IParser {
 		TermNode term = parseTerm();
 		ExpressionNode expression = null;
 		Lexeme operator = null;
-		//current = tokenizer.current();
 		next = tokenizer.peek();
 		
 		if(next.token() == Token.ADD_OP || next.token() == Token.SUB_OP) {
@@ -72,7 +71,6 @@ public class Parser implements IParser {
 		FactorNode factor = parseFactor();
 		TermNode term = null;
 		Lexeme op = null;
-		//current = tokenizer.current();
 		next = tokenizer.peek();
 		
 		if(next.token() == Token.RIGHT_PAREN)
@@ -87,7 +85,6 @@ public class Parser implements IParser {
 	}
 	
 	public FactorNode parseFactor() throws IOException, TokenizerException, ParserException {
-		//current = tokenizer.current();
 		next = tokenizer.peek();
 		
 		if(next.token() == Token.INT_LIT)

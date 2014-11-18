@@ -6,17 +6,7 @@ AssignmentNode
 		TermNode
 			FactorNode
 				INT_LIT 1
-		ADD_OP +
-		ExpressionNode
-			TermNode
-				FactorNode
-					INT_LIT 2
-			SUB_OP -
-			ExpressionNode
-				TermNode
-					FactorNode
-						INT_LIT 3
 	SEMICOLON ;
 
 EVALUATION:
--1
+INT_LIT 1

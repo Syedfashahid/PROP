@@ -1,4 +1,4 @@
-package prop.assignment0.node;
+package prop.assignment0.node_OLD;
 
 import prop.assignment0.tokenizer.Lexeme;
 import prop.assignment0.tokenizer.Token;
@@ -35,5 +35,10 @@ public class AssignmentNode implements INode {
 	public void appendTabs(StringBuilder builder, int tabs) {
 		for(int i = 0; i < tabs; i++)
 			builder.append("\t");
+	}
+	
+	@Override
+	public String toString() {
+		return "AssignmentNode " + id + " " + expr + " " + OP;
 	}
 }

@@ -1,4 +1,4 @@
-package prop.assignment0.node;
+package prop.assignment0.node_OLD;
 
 import prop.assignment0.tokenizer.Lexeme;
 import prop.assignment0.tokenizer.Token;
@@ -21,33 +21,46 @@ public class FactorNode implements INode {
 
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		if(expr == null)
-			return integer;
-		
-		return null;
+		return integer;
 	}
 
 	@Override
 	public void buildString(StringBuilder builder, int tabs) {
-		appendTabs(builder, tabs);
+		for(int i = 0; i < tabs; i++)
+			builder.append("\t");
+		
 		builder.append("FactorNode\n");
 		
 		if(integer != null) {
-			appendTabs(builder, tabs);	
+			for(int i = 0; i < tabs; i++)
+				builder.append("\t");
+			
 			builder.append("\t" + integer +"\n");
 		}
 		
 		if(expr != null) {
-			appendTabs(builder, tabs);
+			for(int i = 0; i < tabs; i++)
+				builder.append("\t");
+			
 			builder.append("\t" + leftParen + "\n");	
 			expr.buildString(builder, tabs + 1);
-			appendTabs(builder, tabs);
+			
+			for(int i = 0; i < tabs; i++)
+				builder.append("\t");
+			
 			builder.append("\t" + rightParen + "\n");
 		}
 	}
 	
-	public void appendTabs(StringBuilder builder, int tabs) {
-		for(int i = 0; i < tabs; i++)
-			builder.append("\t");
+	@Override
+	public String toString() {
+		String str = "FactorNode ";
+		
+		if(integer != null)
+			str += integer;
+		else if(expr != null)
+			str += leftParen + " " + expr + " " + rightParen;
+		
+		return str;
 	}
 }
