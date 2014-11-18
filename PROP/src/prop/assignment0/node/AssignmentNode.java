@@ -4,10 +4,10 @@ import prop.assignment0.tokenizer.Lexeme;
 import prop.assignment0.tokenizer.Token;
 
 public class AssignmentNode implements INode {
-	public Lexeme id;
-	public ExpressionNode expr;
-	public static final Lexeme OP = new Lexeme('=', Token.ASSIGN_OP);
-	public static final Lexeme EOS = new Lexeme(';', Token.SEMICOLON);
+	private Lexeme id;
+	private ExpressionNode expr;
+	private static final Lexeme OP = new Lexeme('=', Token.ASSIGN_OP);
+	private static final Lexeme EOS = new Lexeme(';', Token.SEMICOLON);
 	
 	public AssignmentNode(Lexeme id, ExpressionNode expr) {
 		this.id = id;

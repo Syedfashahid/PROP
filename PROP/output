@@ -5,12 +5,18 @@ AssignmentNode
 	ExpressionNode
 		TermNode
 			FactorNode
-				INT_LIT 4
-			DIV_OP /
+				INT_LIT 1
+		ADD_OP +
+		ExpressionNode
 			TermNode
 				FactorNode
 					INT_LIT 2
+			SUB_OP -
+			ExpressionNode
+				TermNode
+					FactorNode
+						INT_LIT 3
 	SEMICOLON ;
 
 EVALUATION:
-2
+-1

@@ -4,13 +4,9 @@ import prop.assignment0.tokenizer.Lexeme;
 import prop.assignment0.tokenizer.Token;
 
 public class TermNode implements INode {
-	public FactorNode factor;
-	public TermNode term;
-	public Lexeme op;
-	
-	public TermNode() {
-		
-	}
+	private FactorNode factor;
+	private TermNode term;
+	private Lexeme op;
 	
 	public TermNode(FactorNode factor, TermNode term, Lexeme op) {
 		this.factor = factor;
