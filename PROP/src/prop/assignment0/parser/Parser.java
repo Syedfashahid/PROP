@@ -48,7 +48,7 @@ public class Parser implements IParser {
 		current = tokenizer.current();
 		
 		if(current.token() != Token.SEMICOLON)
-			throw new ParserException("Expected ASSIGN_OP or SEMICOLON but was " + current.token());
+			throw new ParserException("Syntax error.");
 		
 		return new AssignmentNode(id, expression);
 	}
@@ -95,7 +95,7 @@ public class Parser implements IParser {
 			return new FactorNode(null, parseExpression());
 		}
 		
-		throw new ParserException("Expected INT_LIT or LEFT_PAREN but was " + next.token());
+		throw new ParserException("Syntax error.");
 	}
 
 	@Override

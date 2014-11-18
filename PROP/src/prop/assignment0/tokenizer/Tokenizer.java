@@ -82,7 +82,7 @@ public class Tokenizer implements ITokenizer {
 					str += scanner.current();
 				}
 
-				return new Lexeme(str, Token.INT_LIT);
+				return new Lexeme(Double.parseDouble(str), Token.INT_LIT);
 			}
 
 			throw new TokenizerException("Failed to categorize char: '" + currentChar + "'");
