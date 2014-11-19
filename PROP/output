@@ -5,23 +5,26 @@ AssignmentNode
 	ExpressionNode
 		TermNode
 			FactorNode
-				INT_LIT 2.0
+				INT_LIT 1.0
+			MULT_OP *
+			TermNode
+				FactorNode
+					INT_LIT 2.0
+				DIV_OP /
+				TermNode
+					FactorNode
+						INT_LIT 3.0
 		ADD_OP +
 		ExpressionNode
 			TermNode
 				FactorNode
-					INT_LIT 3.0
-			ADD_OP +
+					INT_LIT 4.0
+			SUB_OP -
 			ExpressionNode
 				TermNode
 					FactorNode
-						INT_LIT 4.0
-				SUB_OP -
-				ExpressionNode
-					TermNode
-						FactorNode
-							INT_LIT 5.0
+						INT_LIT 5.0
 	SEMICOLON ;
 
 EVALUATION:
-4.0
+-0.833333333333333

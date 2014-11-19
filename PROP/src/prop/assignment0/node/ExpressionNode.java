@@ -14,13 +14,13 @@ public class ExpressionNode implements INode {
 		this.op = op;
 	}
 
-	@Override
+	/*@Override
 	public Object evaluate(Object[] args) throws Exception {	
 		if(expr == null) {
-			if(args == null || args.length == 0)
+			//if(args == null || args.length == 0)
 				return term.evaluate(args);
 
-			Lexeme[] lexArr = (Lexeme[]) args;
+			/*Lexeme[] lexArr = (Lexeme[]) args;
 
 			for(int i = 0; i < lexArr.length - 2; i+=2) {
 				Lexeme lexOne = lexArr[i];
@@ -38,10 +38,11 @@ public class ExpressionNode implements INode {
 			
 			Lexeme lexOne = lexArr[lexArr.length - 2];
 			Lexeme operator = lexArr[lexArr.length - 1];
-			Lexeme lexTwo = (Lexeme) term.evaluate(null);
+			//Lexeme lexTwo = (Lexeme) term.evaluate(null);
 			
 			double doubleOne = (Double) lexOne.value();
-			double doubleTwo = (Double) lexTwo.value();
+			//double doubleTwo = (Double) lexTwo.value();
+			double doubleTwo = (Double) term.evaluate(args);
 			
 			if(operator.token() == Token.ADD_OP)
 				return doubleOne + doubleTwo;
@@ -56,18 +57,25 @@ public class ExpressionNode implements INode {
 
 				lexArr[lexArr.length - 1] = op;
 				lexArr[lexArr.length - 2] = (Lexeme) term.evaluate(null);
+				//lexArr[lexArr.length - 2] = new Lexeme(term.evaluate(null), Token.INT_LIT);
 
 				return expr.evaluate(lexArr);
 			} else if(args == null || args.length == 0) {
 				Lexeme[] lexArr = new Lexeme[2];
 				lexArr[lexArr.length - 1] = op;
-				lexArr[lexArr.length - 2] = (Lexeme) term.evaluate(null);
+				//lexArr[lexArr.length - 2] = (Lexeme) term.evaluate(null);
+				lexArr[lexArr.length - 2] = new Lexeme(term.evaluate(null), Token.INT_LIT);
 				
 				return expr.evaluate(lexArr);
 			}
 		}
 
-		throw new Exception("Something went wrong...");
+		throw new Exception("Something went horribly wrong...");
+	}*/
+	
+	@Override
+	public Object evaluate(Object[] args) {
+		return null;
 	}
 
 	@Override
