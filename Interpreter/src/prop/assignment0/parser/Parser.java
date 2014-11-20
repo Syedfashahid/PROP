@@ -40,7 +40,7 @@ public class Parser implements IParser {
 	
 	public BlockNode parseBlock() throws IOException, TokenizerException {
 		StatementsNode stmts = parseStatements();
-		current = tokenizer.current();
+		//current = tokenizer.current();
 		
 		if(current.token() != Token.RIGHT_CURLY)
 			throw new TokenizerException("Expected RIGHT_CURLY but was " + current.token());
@@ -52,11 +52,13 @@ public class Parser implements IParser {
 		AssignmentNode assign = null;
 		StatementsNode stmts = null;
 		
-		current = tokenizer.current();
+		if(current.token() == Token.LEFT_CURLY)
+			current = tokenizer.current();
 		
 		if(current.token() == Token.IDENT)
 			assign = parseAssignment();
 		
+		current = tokenizer.current();
 		Lexeme next = tokenizer.peek();
 		
 		if(next.token() != Token.EOF && next.token() != Token.RIGHT_CURLY)
