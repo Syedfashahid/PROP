@@ -1,5 +1,7 @@
 package prop.assignment0.node;
 
+import java.util.HashMap;
+
 import prop.assignment0.lexeme.Lexeme;
 import prop.assignment0.lexeme.Token;
 
@@ -19,16 +21,16 @@ public class TermNode implements INode {
 	}
 	
 	@Override
-	public Object evaluate(Object[] args) throws Exception {
-		Object factEval = factor.evaluate(null);
+	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
+		Object factEval = factor.evaluate(null, null);
 		
 		if(term == null)
 			if(args == null)
 				return factEval;
 			else
-				return INode.calculate(args, Token.DIV_OP, Token.MULT_OP, factEval);
+				return INode.calculate(args, Token.DIV_OP, Token.MULT_OP, factEval, map);
 		
-		return term.evaluate(INode.getNewArgs(args, factEval, oper));
+		return term.evaluate(INode.getNewArgs(args, factEval, oper), map);
 	}
 
 	@Override

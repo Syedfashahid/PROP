@@ -2,6 +2,7 @@ package prop.assignment0;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 
 import prop.assignment0.node.INode;
 import prop.assignment0.parser.IParser;
@@ -31,7 +32,7 @@ public class Program {
 				builder.append("PARSE TREE:\n");
 				root.buildString(builder, 0);
 				builder.append("\nEVALUATION:\n");
-				builder.append(root.evaluate(null));
+				builder.append(root.evaluate(null, new HashMap<String, Double>()));
 				
 				stream = new FileOutputStream(outputFileName);
 				writer = new OutputStreamWriter(stream);

@@ -1,5 +1,7 @@
 package prop.assignment0.node;
 
+import java.util.HashMap;
+
 import prop.assignment0.lexeme.Lexeme;
 import prop.assignment0.lexeme.Token;
 
@@ -16,13 +18,11 @@ public class FactorNode implements INode {
 	}
 	
 	@Override
-	public Object evaluate(Object[] args) throws Exception {
+	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		if(lex != null)
-			return lex;
-		else if(expr != null)
-			return expr.evaluate(null);
+			return lex.value();
 		
-		throw new Exception("Failed to evaluate FactorNode");
+		return expr.evaluate(null, map);
 	}
 
 	@Override

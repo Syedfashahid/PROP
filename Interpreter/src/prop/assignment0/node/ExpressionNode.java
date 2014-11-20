@@ -1,5 +1,7 @@
 package prop.assignment0.node;
 
+import java.util.HashMap;
+
 import prop.assignment0.lexeme.Lexeme;
 import prop.assignment0.lexeme.Token;
 
@@ -19,17 +21,16 @@ public class ExpressionNode implements INode {
 	}
 
 	@Override
-	public Object evaluate(Object[] args) throws Exception {
-		Object termEval = term.evaluate(null);
+	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
+		Object termEval = term.evaluate(null, map);
 
-		if(expr == null) {
+		if(expr == null)
 			if(args == null)
 				return termEval;
 			else
-				return INode.calculate(args, Token.ADD_OP, Token.SUB_OP, termEval);
-		}
+				return INode.calculate(args, Token.ADD_OP, Token.SUB_OP, termEval, map);
 		
-		return expr.evaluate(INode.getNewArgs(args, termEval, oper));
+		return expr.evaluate(INode.getNewArgs(args, termEval, oper), map);
 	}
 
 	@Override

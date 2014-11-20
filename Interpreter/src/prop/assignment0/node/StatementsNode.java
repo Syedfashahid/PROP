@@ -1,6 +1,7 @@
 package prop.assignment0.node;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class StatementsNode implements INode {
 	private AssignmentNode assign;
@@ -15,26 +16,31 @@ public class StatementsNode implements INode {
 	}
 	
 	@Override
-	public Object evaluate(Object[] args) throws Exception {
+	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		if(assign == null && stmts == null)
 			return null;
 		
-		else if(assign != null && stmts != null) {
-			Object assignEval = assign.evaluate(args);
+		Object assignEval = assign.evaluate(null, map);
+		Object[] tmp = (Object[]) assignEval;
+		
+		if(tmp[2] instanceof String)
+			tmp[2] = map.get(tmp[2]);
+		
+		map.put((String) tmp[0], (Double) tmp[2]);
+		Object stmtsEval = stmts.evaluate(null, map);
+		
+		if(stmtsEval == null) {			
+			String str = "";
 			
-			Object[] tmp2 = (Object[]) assignEval;
-			System.out.println(tmp2[0] + " " + tmp2[1] + " " + tmp2[2]);
-			HashMap<Character, Double> map = new HashMap<>();
-			map.put((Character) tmp2[0], (Double) tmp2[2]);
-			Object[] newArgs = new Object[1];
-			newArgs[0] = map;
-			Object stmtsEval = stmts.evaluate(newArgs);
+			for(Map.Entry<String, Double> me : map.entrySet()) {
+				double value = Math.round(me.getValue() * 100.0) / 100.0;
+				str += me.getKey() + " = " + value + "\n";
+			}
 			
-			if(stmtsEval == null)
-				return assignEval;
+			return str;
 		}
 		
-		throw new Exception("Failed to evaluate StatementsNode");
+		return stmtsEval;
 	}
 
 	@Override

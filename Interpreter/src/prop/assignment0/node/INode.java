@@ -10,8 +10,7 @@ public interface INode {
 	 * The argument array 'args' is only needed for the requirements for grade A and B.
 	 * When not needed just call evaluate with null as the actual parameter.
 	 */
-	Object evaluate(Object[] args) throws Exception; 
-	
+	Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception; 
 	void buildString(StringBuilder builder, int tabs);
 	
 	public static void appendString(StringBuilder builder, int tabs, String str) {
@@ -21,40 +20,18 @@ public interface INode {
 		builder.append(str + "\n");
 	}
 	
-	public static Double objectToDouble(Object obj, HashMap<Character, Double> map) throws Exception {
-		Double ret = Double.MAX_VALUE;
+	public static Double objectToDouble(Object obj, HashMap<String, Double> map) throws Exception {
+		if(obj instanceof Double)
+			return (Double) obj;
 		
-		if(obj instanceof Double) {
-			ret = (Double) obj;
-			return ret;
-		}
-		
-		if(obj instanceof Lexeme) {
-			Lexeme tmp = (Lexeme) obj;
-			if(((Lexeme) obj).token() == Token.IDENT) {
-				if(map.containsKey(((String) tmp.value()).charAt(0)))
-					return map.get(((String) tmp.value()).charAt(0));
-				else if(((String) tmp.value()).charAt(0) != 'a')
-					throw new Exception("Undefined variable " + ((String) tmp.value()).charAt(0));
-			}
-		}
-		
-		//if(obj instanceof Character) {
-		//	return 1.0;
-		//}
+		if(obj instanceof String)
+			return map.get(obj);
 		
 		return Double.parseDouble(((Lexeme) obj).value().toString());
 	}
 	
-	public static Object calculate(Object[] args, Token opOne, Token opTwo, Object lastArg) throws Exception {
-		HashMap<Character, Double> map = null;
-		
+	public static Object calculate(Object[] args, Token opOne, Token opTwo, Object lastArg, HashMap<String, Double> map) throws Exception {
 		for(int i = 0; i < args.length - 2; i += 2) {
-			if(args[0] instanceof HashMap) {
-				map = (HashMap<Character, Double>) args[0];
-				continue;
-			}
-			
 			Double dblOne = INode.objectToDouble(args[i], map);
 			Lexeme oper = (Lexeme) args[i + 1];
 			Double dblTwo = INode.objectToDouble(args[i + 2], map);
