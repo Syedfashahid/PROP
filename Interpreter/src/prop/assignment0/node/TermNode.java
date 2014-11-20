@@ -1,6 +1,7 @@
 package prop.assignment0.node;
 
 import prop.assignment0.lexeme.Lexeme;
+import prop.assignment0.lexeme.Token;
 
 public class TermNode implements INode {
 	private FactorNode factor;
@@ -19,7 +20,15 @@ public class TermNode implements INode {
 	
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		return null;
+		Object factEval = factor.evaluate(null);
+		
+		if(term == null)
+			if(args == null)
+				return factEval;
+			else
+				return INode.calculate(args, Token.DIV_OP, Token.MULT_OP, factEval);
+		
+		return term.evaluate(INode.getNewArgs(args, factEval, oper));
 	}
 
 	@Override

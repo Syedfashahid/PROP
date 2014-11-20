@@ -126,8 +126,16 @@ public class Parser implements IParser {
 		if(current.token() != Token.INT_LIT && current.token() != Token.IDENT && current.token() != Token.LEFT_PAREN)
 			throw new TokenizerException("Expected INT_LIT or IDENT but was " + current.token());
 		
-		if(current.token() != Token.LEFT_PAREN)
-			return new FactorNode(current);
+		if(current.token() != Token.LEFT_PAREN) {
+			FactorNode ret = null;
+			
+			if(current.token() == Token.INT_LIT)
+				ret = new FactorNode(new Lexeme(Double.parseDouble((String) current.value()), Token.INT_LIT));
+			else
+				ret = new FactorNode(current);
+			
+			return ret;
+		}
 		
 		ExpressionNode expr = parseExpression();
 		current = tokenizer.current();
