@@ -22,10 +22,10 @@ public class StatementsNode implements INode {
 	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
-		if(assign == null && stmts == null)
+		if(assign == null)
 			return null;
 		
-		Object assignEval = assign.evaluate(null, map);
+		Object assignEval = assign.evaluate(args, map);
 		Object[] tmp = (Object[]) assignEval;
 		
 		if(tmp[2] instanceof String)
