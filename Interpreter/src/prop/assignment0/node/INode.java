@@ -7,12 +7,15 @@ import prop.assignment0.lexeme.Token;
 
 public interface INode {
 	/**
-	 * The argument array 'args' is only needed for the requirements for grade A and B.
-	 * When not needed just call evaluate with null as the actual parameter.
+	 * Change: Added a HashMap of variables as keys and their double value as value.
+	 * chose to seperate those from the args array for convenience reasons.
 	 */
 	Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception; 
 	void buildString(StringBuilder builder, int tabs);
 	
+	/**
+	 * Appends a number of tabs to a StringBuilder followed by a String.
+	 */
 	public static void appendString(StringBuilder builder, int tabs, String str) {
 		for(int i = 0; i < tabs; i++)
 			builder.append("\t");
@@ -20,7 +23,10 @@ public interface INode {
 		builder.append(str + "\n");
 	}
 	
-	public static Double objectToDouble(Object obj, HashMap<String, Double> map) throws Exception {
+	/**
+	 * Converts an Object to a Double, either by casting it or looking it up in the HashMap if it's a variable.
+	 */
+	public static Double objectToDouble(Object obj, HashMap<String, Double> map) {
 		if(obj instanceof Double)
 			return (Double) obj;
 		
@@ -30,6 +36,14 @@ public interface INode {
 		return Double.parseDouble(((Lexeme) obj).value().toString());
 	}
 	
+	/**
+	 * Method for calculating the double value of a expression or term.
+	 * Adds arguments until it reaches a ExpressionNode where expr is null (or TermNode where term is null).
+	 * Iterates over the argument list, identifying two doubles and which operator should be used.
+	 * Saves the results at index + 2 and continues iterating until the result of the caluclation is at args.length - 2
+	 * and the next operator to be used is at args.length - 1. These two are then used together with the ExpressionNodes or TermNodes
+	 * own Term or Factor evaluation to return the final result.
+	 */
 	public static Object calculate(Object[] args, Token opOne, Token opTwo, Object lastArg, HashMap<String, Double> map) throws Exception {
 		for(int i = 0; i < args.length - 2; i += 2) {
 			Double dblOne = INode.objectToDouble(args[i], map);
@@ -64,6 +78,9 @@ public interface INode {
 			throw new Exception("Expected ADD_OP, SUB_OP, DIV_OP or MULT_OP but was " + oper.token());
 	}
 	
+	/**
+	 * Used to copy all the old arguments to a new array and add the calling class own arguments to the array.
+	 */
 	public static Object[] getNewArgs(Object[] args, Object eval, Lexeme oper) {
 		Object[] newArgs = null;
 		
@@ -79,14 +96,6 @@ public interface INode {
 		
 		newArgs[newArgs.length - 2] = eval;
 		newArgs[newArgs.length - 1] = oper;
-		
-		for(int i = 0; i < newArgs.length; i++)
-			if(newArgs[i] instanceof Lexeme) {
-				Lexeme tmp = (Lexeme) newArgs[i];
-				
-				if(tmp.token() == Token.SEMICOLON)
-					System.out.println("hello");
-			}
 		
 		return newArgs;
 	}

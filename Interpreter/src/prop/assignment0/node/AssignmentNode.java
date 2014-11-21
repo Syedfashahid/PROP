@@ -14,6 +14,9 @@ public class AssignmentNode implements INode {
 		this.expr = expr;
 	}
 	
+	/**
+	 * Evaluates expr and saves the result in a Object array then returns it.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		Object exprEval = expr.evaluate(null, map);

@@ -17,6 +17,10 @@ public class FactorNode implements INode {
 		this.expr = expr;
 	}
 	
+	/**
+	 * If the FactorNode contains a lexeme, return lexeme.value().
+	 * else, evalute expr and return it.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		if(lex != null)

@@ -30,6 +30,12 @@ public class Scanner implements IScanner {
 		return next;
 	}
 
+	/**
+	 * Change: moveNext() now sets both current and next, making it possible to peek at the next character.
+	 * Added for making the logic simpler in the tokenizer and for convenience.
+	 * If current is not set current will be the first character and next will be the second character.
+	 * After that current will be set to next and next will be the character after that.
+	 */
 	public void moveNext() throws IOException {
 		if (reader == null)
 			throw new IOException("No open file.");

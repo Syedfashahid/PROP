@@ -20,6 +20,9 @@ public class TermNode implements INode {
 		this.oper = oper;
 	}
 	
+	/**
+	 * Works pretty much exactly the same as ExpressionNode.evaluate() but this time we use DIV_OP and MULT_OP instead.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		Object factEval = factor.evaluate(null, null);

@@ -28,6 +28,11 @@ public class Parser implements IParser {
 		tokenizer.open(fileName);
 	}
 
+	/**
+	 * Starts the parsing by moving to the first Lexeme.
+	 * If that Lexme is a LEFT_CURLY it will return parseBlock(),
+	 * else parseStatements().
+	 */
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
 		current = tokenizer.current();
@@ -38,9 +43,12 @@ public class Parser implements IParser {
 			return parseStatements();
 	}
 	
+	/**
+	 * Starts with parseStatements() and then checks if the block ends with Token.RIGHT_CURLY, else throws exception.
+	 * returns the BlockNode.
+	 */
 	public BlockNode parseBlock() throws IOException, TokenizerException {
 		StatementsNode stmts = parseStatements();
-		//current = tokenizer.current();
 		
 		if(current.token() != Token.RIGHT_CURLY)
 			throw new TokenizerException("Expected RIGHT_CURLY but was " + current.token());
@@ -48,6 +56,11 @@ public class Parser implements IParser {
 		return new BlockNode(stmts);
 	}
 	
+	/**
+	 * Starts by skipping LEFT_CURLY if it is the current Lexeme.
+	 * If the currennt Lexme has Token.IDENT, parseAssignment().
+	 * Peeks at the next Lexeme, if it is EOF or RIGHT_CURLY, stop, otherwise continue to parse statements.
+	 */
 	public StatementsNode parseStatements() throws IOException, TokenizerException {
 		AssignmentNode assign = null;
 		StatementsNode stmts = null;
@@ -72,6 +85,10 @@ public class Parser implements IParser {
 		return new StatementsNode(assign, stmts);
 	}
 	
+	/**
+	 * First  looks for IDENT then saves it and moves forward, looks for ASSIGN_OP, moves forward and calls parseExpression().
+	 * Moves forward again and expects SEMICOLON then returns a new AssignmentNode.
+	 */
 	public AssignmentNode parseAssignment() throws IOException, TokenizerException {
 		if(current.token() != Token.IDENT)
 			throw new TokenizerException("Expected IDENT but was " + current.token());
@@ -107,6 +124,10 @@ public class Parser implements IParser {
 		return new ExpressionNode(term, expr, oper);
 	}
 	
+	/**
+	 * Starts with parseFactor(), peeks at next token, if it is not DIV_OP or MULT_OP, return.
+	 * Else, continue parsing terms.
+	 */
 	public TermNode parseTerm() throws IOException, TokenizerException {
 		FactorNode factor = parseFactor();
 		Lexeme next = tokenizer.peek();
@@ -120,6 +141,11 @@ public class Parser implements IParser {
 		return new TermNode(factor, parseTerm(), oper);
 	}
 	
+	/*
+	 * The current token should be INT_LIT, IDENT or LEFT_PAREN.
+	 * If it is not LEFT_PAREN it will return either an INT_LIT or IDENT.
+	 * Else, parse the expression that is inside the parens.
+	 */
 	public FactorNode parseFactor() throws IOException, TokenizerException {
 		current = tokenizer.current();
 		

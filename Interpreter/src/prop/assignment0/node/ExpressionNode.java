@@ -19,7 +19,13 @@ public class ExpressionNode implements INode {
 		this.expr = expr;
 		this.oper = oper;
 	}
-
+	
+	/**
+	 * Begins with evaluating it's term.
+	 * if expr is null and there are no arguments, just return the result of terms evaluation.
+	 * else, calculate the value of Object[] args contents sending ADD_OP and SUB_OP as operators, etc.
+	 * if expr is not null, evalute it while also sending arguments via getNewArgs.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		Object termEval = term.evaluate(null, map);

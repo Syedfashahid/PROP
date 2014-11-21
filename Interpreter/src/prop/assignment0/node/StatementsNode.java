@@ -15,6 +15,11 @@ public class StatementsNode implements INode {
 		this.stmts = stmts;
 	}
 	
+	/**
+	 * Returns null if the StatementsNode is empty.
+	 * Else, evaluates assign and saves the results (variable and it's value) in the HashMap.
+	 * If there are no more statements to evaluate, return a string built upon the contents of the final map.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		if(assign == null && stmts == null)
