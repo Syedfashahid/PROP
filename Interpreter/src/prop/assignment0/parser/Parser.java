@@ -141,7 +141,7 @@ public class Parser implements IParser {
 		return new TermNode(factor, parseTerm(), oper);
 	}
 	
-	/*
+	/**
 	 * The current token should be INT_LIT, IDENT or LEFT_PAREN.
 	 * If it is not LEFT_PAREN it will return either an INT_LIT or IDENT.
 	 * Else, parse the expression that is inside the parens.

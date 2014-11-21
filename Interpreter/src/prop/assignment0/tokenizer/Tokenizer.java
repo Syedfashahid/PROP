@@ -42,10 +42,6 @@ public class Tokenizer implements ITokenizer {
 	 * Find the next character, skipping all whitespace, and categorizes it into the correct Token.
 	 * If currentChar is not a symbol and it is alphabetic it will continute to read while the next char is alphabetic
 	 * and return a Token.IDENT Lexeme, digits works similarly for Lexemes with Token.INT_LIT.
-	 * 
-	 * @return the Lexeme with currentChar as value and the correct Token.
-	 * @throws IOException thrown if read from file fails.
-	 * @throws TokenizerException thrown if method fails to categorize currentChar.
 	 */
 	private Lexeme tokenize() throws IOException, TokenizerException {
 		moveNext();		

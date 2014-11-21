@@ -12,6 +12,9 @@ public class BlockNode implements INode {
 		this.stmts = stmts;
 	}
 	
+	/**
+	 * returns the result of stmts evaluation.
+	 */
 	@Override
 	public Object evaluate(Object[] args, HashMap<String, Double> map) throws Exception {
 		return stmts.evaluate(null, map);
